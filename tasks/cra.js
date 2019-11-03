@@ -61,17 +61,25 @@ if (gitStatus.trim() !== '') {
 const rootDir = path.join(__dirname, '..');
 const packagesDir = path.join(rootDir, 'packages');
 const packagePathsByName = {};
+// readdirSync返回制定目录下所有文件名称的数组对象
 fs.readdirSync(packagesDir).forEach(name => {
+  // 这里的name就是每一个文件夹的名字
   const packageDir = path.join(packagesDir, name);
+  // 这里读取到了每个文件夹下面的package.json文件夹
   const packageJson = path.join(packageDir, 'package.json');
+  // 如果路径存在就返回true，不存在就返回false
   if (fs.existsSync(packageJson)) {
+    // 将对应的文件夹和文件路径映射保存到packagePathsByName对象中
     packagePathsByName[name] = packageDir;
   }
 });
 Object.keys(packagePathsByName).forEach(name => {
+  // 拿到每个文件夹下面的package.json文件
   const packageJson = path.join(packagePathsByName[name], 'package.json');
+  // 读取到每个package.json里面的内容
   const json = JSON.parse(fs.readFileSync(packageJson, 'utf8'));
   Object.keys(packagePathsByName).forEach(otherName => {
+    // 将文件名和文件名路径保存在对应的依赖列表中
     if (json.dependencies && json.dependencies[otherName]) {
       json.dependencies[otherName] = 'file:' + packagePathsByName[otherName];
     }
@@ -106,9 +114,10 @@ const scriptsFileName = cp
 const scriptsPath = path.join(packagesDir, 'react-scripts', scriptsFileName);
 
 // Now that we have packed them, call the global CLI.
-cp.execSync('yarn cache clean');
+cp.execSync('yarn cache clean')
 
 const args = process.argv.slice(2);
+console.log('>>>>>args>>>>>>', args)
 
 // Now run the CRA command
 const craScriptPath = path.join(packagesDir, 'create-react-app', 'index.js');
