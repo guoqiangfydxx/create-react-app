@@ -154,6 +154,8 @@ const program = new commander.Command(packageJson.name)
   })
   .parse(process.argv);
 
+console.log('>>>>>program>>>>>', program);
+
 if (program.info) {
   console.log(chalk.bold('\nEnvironment Info:'));
   return envinfo
@@ -236,9 +238,11 @@ function createApp(
   }
 
   const root = path.resolve(name);
+  // basename取得是路径的最后一部分
   const appName = path.basename(root);
 
   checkAppName(appName);
+  // 确认目录是否存在，如果不存在的话，就创建一个
   fs.ensureDirSync(name);
   if (!isSafeToCreateProjectIn(root, name)) {
     process.exit(1);
@@ -252,6 +256,7 @@ function createApp(
     version: '0.1.0',
     private: true,
   };
+  // 向pakcage.json文件中写入了部分内容
   fs.writeFileSync(
     path.join(root, 'package.json'),
     JSON.stringify(packageJson, null, 2) + os.EOL

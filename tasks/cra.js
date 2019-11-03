@@ -114,10 +114,11 @@ const scriptsFileName = cp
 const scriptsPath = path.join(packagesDir, 'react-scripts', scriptsFileName);
 
 // Now that we have packed them, call the global CLI.
-cp.execSync('yarn cache clean')
+cp.execSync('yarn cache clean');
 
 const args = process.argv.slice(2);
-console.log('>>>>>args>>>>>>', args)
+// 这里截取的是crate-react-app后面的所有参数,这里获取的是对应的文件夹名称
+console.log('>>>>>args>>>>>>', args);
 
 // Now run the CRA command
 const craScriptPath = path.join(packagesDir, 'create-react-app', 'index.js');

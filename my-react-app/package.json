@@ -1,0 +1,10 @@
+{
+  "name": "my-react-app",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "react": "^16.11.0",
+    "react-dom": "^16.11.0",
+    "react-scripts": "/Users/fydxx/Documents/GitHub/create-react-app/packages/react-scripts/react-scripts-3.2.0.tgz"
+  }
+}
